@@ -13,9 +13,8 @@
         <MelonLoaderModsPath>$(GorillaTagPath)/Mods</MelonLoaderModsPath>
     </PropertyGroup>
 
-    <!-- MelonLoader doesn't seem to check any additional folders in the 'Mods' folder? -->
     <Target Name="CopyToPlugins" AfterTargets="Build">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MelonLoaderModsPath)" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MelonLoaderModsPath)/Decal's Mods" />
     </Target>
 
     <ItemGroup>

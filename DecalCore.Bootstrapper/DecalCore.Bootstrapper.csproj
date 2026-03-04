@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <!-- 'GorillaTagPath' is used as a system environment variable -->
+    <PropertyGroup>
+        <GameAssemblyPath>$(GorillaTagPath)/Gorilla Tag_Data/Managed</GameAssemblyPath>
+        <MelonLoaderAssemblyPath>$(GorillaTagPath)/MelonLoader/net35</MelonLoaderAssemblyPath>
+        <MelonLoaderPluginsPath>$(GorillaTagPath)/Plugins</MelonLoaderPluginsPath>
+    </PropertyGroup>
+    
+    <Target Name="CopyToPlugins" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MelonLoaderPluginsPath)" />
+    </Target>
+
+    <ItemGroup>
+      <Reference Include="MelonLoader">
+        <HintPath>$(MelonLoaderAssemblyPath)/MelonLoader.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

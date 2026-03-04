@@ -37,7 +37,7 @@ public class NetService : MonoBehaviour {
     }
     
     private async Task<List<PluginResponse>> FetchPluginData() {
-        using HttpRequestMessage httpRequest = new(HttpMethod.Get, $"{Constants.APIEndpoint}/plugins");
+        using HttpRequestMessage httpRequest = new(HttpMethod.Get, $"{SharedConstants.APIEndpoint}/plugins");
         
         using HttpResponseMessage response = await _httpClient.SendAsync(httpRequest);
         string json = await response.Content.ReadAsStringAsync();
