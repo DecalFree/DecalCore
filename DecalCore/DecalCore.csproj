@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <!-- 'GorillaTagPath' is used as a system environment variable -->
+    <PropertyGroup>
+        <GameAssemblyPath>$(GorillaTagPath)/Gorilla Tag_Data/Managed</GameAssemblyPath>
+        <MelonLoaderAssemblyPath>$(GorillaTagPath)/MelonLoader/net35</MelonLoaderAssemblyPath>
+        <MelonLoaderModsPath>$(GorillaTagPath)/Mods</MelonLoaderModsPath>
+    </PropertyGroup>
+
+    <!-- MelonLoader doesn't seem to check any additional folders in the 'Mods' folder? -->
+    <Target Name="CopyToPlugins" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MelonLoaderModsPath)" />
+    </Target>
+
+    <ItemGroup>
+      <Reference Include="0Harmony">
+        <HintPath>$(MelonLoaderAssemblyPath)/0Harmony.dll</HintPath>
+      </Reference>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>$(GameAssemblyPath)/Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="MelonLoader">
+        <HintPath>$(MelonLoaderAssemblyPath)/MelonLoader.dll</HintPath>
+      </Reference>
+      <Reference Include="Newtonsoft.Json">
+        <HintPath>$(GameAssemblyPath)/Newtonsoft.Json.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine">
+        <HintPath>$(GameAssemblyPath)/UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>$(GameAssemblyPath)/UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
