@@ -4,6 +4,8 @@ using MelonLoader;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+[assembly: VerifyLoaderVersion(0, 7, 2, true)]
+
 [assembly: MelonInfo(typeof(DecalCore.DecalCore), DecalCore.Constants.Name, DecalCore.Constants.Version, DecalCore.Constants.Author)]
 [assembly: MelonGame("Another Axiom", "Gorilla Tag")]
 
