@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using DecalCore.Models.Response;
-using MelonLoader;
+using DecalCore.Tools;
 using Newtonsoft.Json;
 using Semver;
 using UnityEngine;
@@ -19,7 +19,7 @@ public class NetService : MonoBehaviour {
     
     private async void Start() {
         if (_initialized || Singleton != null && Singleton != this) {
-            MelonLogger.Error("Failed to start initializing NetService");
+            Logging.Error("Failed to start initializing NetService");
             return;
         }
         Singleton = this;
@@ -30,10 +30,10 @@ public class NetService : MonoBehaviour {
         // TODO: Send a Notification with a 'notificationDuration' of 10f if version is outdated.
         VersionCheckResponse versionCheckResponse = CheckPluginVersion(Constants.Guid, DecalCore.MelonInfo.SemanticVersion);
         if (versionCheckResponse is { IsVersionOutdated: true }) {
-            MelonLogger.Warning($"DecalCore version {versionCheckResponse.Version} is now available");
+            Logging.Warning($"DecalCore version {versionCheckResponse.Version} is now available");
         }
         
-        MelonLogger.Msg("Successfully ended initializing NetService");
+        Logging.Info("Successfully ended initializing NetService");
     }
     
     private async Task<List<PluginResponse>> FetchPluginData() {
@@ -43,18 +43,18 @@ public class NetService : MonoBehaviour {
         string json = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode) {
-            MelonLogger.Msg("Successfully retrieved PluginData");
+            Logging.Info("Successfully retrieved PluginData");
             return JsonConvert.DeserializeObject<List<PluginResponse>>(json);
         }
         
         GlobalErrorResponse errorResponse = JsonConvert.DeserializeObject<GlobalErrorResponse>(json);
-        MelonLogger.Error($"Failed to retrieve PluginData: '{errorResponse.ErrorMessage}' with status '{errorResponse.ErrorStatus}'");
+        Logging.Error($"Failed to retrieve PluginData: '{errorResponse.ErrorMessage}' with status '{errorResponse.ErrorStatus}'");
         return null;
     }
 
     public bool IsPluginDataValid() {
         if (_pluginData.IsNullOrEmpty()) {
-            MelonLogger.Error("_pluginData is null / empty");
+            Logging.Error("_pluginData is null / empty");
             return false;
         }
         

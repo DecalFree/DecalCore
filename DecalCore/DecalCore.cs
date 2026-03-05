@@ -1,5 +1,6 @@
 ﻿using System;
 using DecalCore.Behaviors;
+using DecalCore.Tools;
 using MelonLoader;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -22,12 +23,12 @@ internal class DecalCore : MelonMod {
 
     private void InitializeDecalCore() {
         try {
-            MelonLogger.Msg("Attempting to load DecalCore");
+            Logging.Info("Attempting to load DecalCore");
             
             Object.DontDestroyOnLoad(new GameObject($"DecalCore v{Constants.Version}", typeof(NetService), typeof(NetWave)));
         }
         catch (Exception exception) {
-            MelonLogger.Error($"Failed to successfully finish loading DecalCore: {exception.Message}");
+            Logging.Error($"Failed to successfully finish loading DecalCore: {exception.Message}");
         }
     }
 }

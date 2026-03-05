@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using DecalCore.Interoperability;
-using MelonLoader;
+using DecalCore.Tools;
 using UnityEngine;
 
 namespace DecalCore.Behaviors;
@@ -14,13 +14,13 @@ public class NetWave : MonoBehaviour {
     
     private void Start() {
         if (_initialized || Singleton != null && Singleton != this) {
-            MelonLogger.Msg("Failed to start initialize NetWave");
+            Logging.Info("Failed to start initialize NetWave");
             return;
         }
         Singleton = this;
         _initialized = true;
         
-        MelonLogger.Msg("Successfully ended initializing NetWave");
+        Logging.Info("Successfully ended initializing NetWave");
     }
     
     public string FormatTimeSpan(TimeSpan timeSpan) => timeSpan.ToString(timeSpan.TotalHours >= 1 ? @"hh\:mm\:ss" : @"mm\:ss");
