@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using DecalCore.Extensions;
 using DecalCore.Interoperability;
 using DecalCore.Tools;
 using UnityEngine;
@@ -22,8 +23,6 @@ public class NetWave : MonoBehaviour {
         
         Logging.Info("Successfully ended initializing NetWave");
     }
-    
-    public string FormatTimeSpan(TimeSpan timeSpan) => timeSpan.ToString(timeSpan.TotalHours >= 1 ? @"hh\:mm\:ss" : @"mm\:ss");
 
     #region NetWave P/INVOKE
     
@@ -35,13 +34,13 @@ public class NetWave : MonoBehaviour {
     public string CurrentMediaSessionAlbum => Marshal.PtrToStringAnsi(NetWavePINVOKE.GetMediaSessionAlbum());
     
     public TimeSpan CurrentMediaSessionStartTime => TimeSpan.FromTicks(NetWavePINVOKE.GetMediaSessionStartTime());
-    public string FormattedCurrentMediaSessionStartTime => FormatTimeSpan(CurrentMediaSessionStartTime);
+    public string FormattedCurrentMediaSessionStartTime => CurrentMediaSessionStartTime.FormatToString();
     
     public TimeSpan CurrentMediaSessionPosition => TimeSpan.FromTicks(NetWavePINVOKE.GetMediaSessionPosition());
-    public string FormattedCurrentMediaSessionPosition => FormatTimeSpan(CurrentMediaSessionPosition);
+    public string FormattedCurrentMediaSessionPosition => CurrentMediaSessionPosition.FormatToString();
     
     public TimeSpan CurrentMediaSessionEndTime => TimeSpan.FromTicks(NetWavePINVOKE.GetMediaSessionEndTime());
-    public string FormattedCurrentMediaSessionEndTime => FormatTimeSpan(CurrentMediaSessionEndTime);
+    public string FormattedCurrentMediaSessionEndTime => CurrentMediaSessionEndTime.FormatToString();
 
     public void PlayMediaSession() => NetWavePINVOKE.PlayMediaSession();
 
